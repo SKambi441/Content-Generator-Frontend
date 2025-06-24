@@ -65,7 +65,7 @@
 
       try {
         
-        const response = await fetch("https://Backend-caption.siphokuhlekambi.repl.co/generate", {
+        const response = await fetch("https://backend-caption-o75k.onrender.com/", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -76,7 +76,7 @@
      const data = await response.json();
         output.value = data;
       } catch (error) {
-        alert("Failed to generate caption. Check your API connection or Replit URL.");
+        alert("Failed to generate caption. Check your API connection or Render URL.");
       } finally {
         loading.classList.add('hidden');
       }
