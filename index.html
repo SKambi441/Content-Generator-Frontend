@@ -64,23 +64,27 @@
       const prompt = `Write a ${tone} social media caption for ${platform} about "${topic}" aimed at IT professionals. Include one relevant hashtag and emojis.`;
 
       try {
-        
-        const response = await fetch("https://backend-caption-o75k.onrender.com/", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ prompt })
-        });
-        
-     const data = await response.json();
-        output.value = data;
-      } catch (error) {
-        alert("Failed to generate caption. Check your API connection or Render URL.");
-      } finally {
-        loading.classList.add('hidden');
-      }
-    }
+  const response = await fetch("https://backend-caption-o75k.onrender.com/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ prompt })
+  });
+
+  if (!response.ok) {
+    throw new Error(`Server error: ${response.status}`);
+  }
+
+  const data = await response.json();
+  output.value = data.caption || "No caption returned.";
+} catch (error) {
+  console.error(error);
+  alert("Failed to generate caption. Check your API connection or Render URL.");
+} finally {
+  loading.classList.add('hidden');
+}
+
 
     function clearForm() {
       document.getElementById('topic').value = "";
